@@ -6,7 +6,7 @@ This repo is based on [https://github.com/microsoft/Analysis-Services/tree/maste
 Create an Azure service account that will be used to run the pipelines in Azure DepvOps. For a tutorial, see [Quickstart: Register an application with the Microsoft identity platform](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app?tabs=certificate). After you create the service account, add permissions to run DevOps pipelines and to to modify applicable Power BI content in the Power BI service, such as semantic models, workspaces, and reports. 
 
 Here is an example:
-(./images/ServiceAccountPermissions.png)
+![ServiceAccountPermissions](./images/ServiceAccountPermissions.png)
 
 # Pipelines
 ## Continuous Integration
