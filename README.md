@@ -5,13 +5,44 @@ This repo is based on [https://github.com/microsoft/Analysis-Services/tree/maste
 
 Create an Azure service account that will be used to run the pipelines in Azure DepvOps. For a tutorial, see [Quickstart: Register an application with the Microsoft identity platform](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app?tabs=certificate). After you create the service account, add permissions to run DevOps pipelines and to to modify applicable Power BI content in the Power BI service, such as semantic models, workspaces, and reports. 
 
-Here is an example:
 ![ServiceAccountPermissions](./images/ServiceAccountPermissions.png)
 
+## Source Control 
+Repository: PowerBI-Deployment
+
+     > Contoso Online Sales
+     
+     > Workspace 2
+     
+     > Workspace 3
+     
+     > Workspace n
+     
+     > yml
+
+Branches:
+
+    > dev
+    
+    > test
+    
+    > main
+
+Make sure to add your service account as a repository user.
+
+# Power BI Workspaces
+I followed a naming convention of having three versions of each project worksapce with a suffix to denote the environement, for example:
+
+- Contoso Online Sales - Dev
+- Contoso Online Sales - Test
+- Contsos Online Sales - Prod
+
+Your developers and testers should have Read permissions on the workspaces because they will be working in feature branches and CI/CD will be used to promote changes to the project workspaces. The service account that you set up to run the pipelines needs to be an Admin in the workspaces.
+    
 # Pipelines
 ## Continuous Integration
 
-The Continuous Integration pipeline downloads the Best Practice Analyzer (BPA) rules and runs them against the reports and semantic models committed to the Azure DevOps repo. More information about Best Practice Analyzer [here](https://docs.tabulareditor.com/te2/Best-Practice-Analyzer.html). 
+The Continuous Integration pipeline is set up to run whenever there is a change in dev, test, or main. It downloads the Best Practice Analyzer (BPA) rules and runs them against the reports and semantic models committed to the Azure DevOps repo. The code that runs BPA is commented out in my Continuous Integration yml because my report and dataset do not meet the best practices, and Continuous Integration needs to succeed before the build can complete. More information about Best Practice Analyzer [here](https://docs.tabulareditor.com/te2/Best-Practice-Analyzer.html). 
 
 ## Continuous Deployment
 
