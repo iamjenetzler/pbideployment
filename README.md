@@ -1,6 +1,9 @@
 This repo is based on [https://github.com/microsoft/Analysis-Services/tree/master/pbidevmode](https://github.com/microsoft/Analysis-Services/tree/master/pbidevmode)
 
 # Setup
+## Azure Service Account
+
+Create an Azure service account that will be used to run the pipelines in Azure DepvOps. For a tutorial, see [Quickstart: Register an application with the Microsoft identity platform](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app?tabs=certificate). After you create the service account
 
 # Pipelines
 ## Continuous Integration
