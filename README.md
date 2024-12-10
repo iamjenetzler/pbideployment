@@ -129,7 +129,7 @@ Set-FabricWorkspacePermissions -workspaceId $workspaceId -permissions $workspace
 
 # Sample - Deploy semantic model and bind to Shared Cloud Connection (SCC)
 
-Learn more about Sharec Cloud Connections [here](https://learn.microsoft.com/en-us/power-bi/connect-data/service-create-share-cloud-data-sources).
+Learn more about Shared Cloud Connections [here](https://learn.microsoft.com/en-us/power-bi/connect-data/service-create-share-cloud-data-sources).
 
 ```powershell
 
