@@ -1,4 +1,13 @@
-# Continuous Deployment
+This repo is based on [https://github.com/microsoft/Analysis-Services/tree/master/pbidevmode](https://github.com/microsoft/Analysis-Services/tree/master/pbidevmode)
+
+# Setup
+
+# Pipelines
+## Continuous Integration
+
+The Continuous Integration pipeline downloads the Best Practice Analyzer (BPA) rules and runs them against the reports and semantic models committed to the Azure DevOps repo. More information about Best Practice Analyzer [here](https://docs.tabulareditor.com/te2/Best-Practice-Analyzer.html). 
+
+## Continuous Deployment
 
 The FabricPS-PBIP module that is used by the ContinuousDeployment.yml has a dependency to Az.Accounts module for authentication into Fabric, and this module is installed by the ContinuousDeployment.yml.
 
@@ -23,24 +32,24 @@ Import-Module ".\modules\FabricPS-PBIP" -Force
 
 ```
 
-# Authentication
+## Authentication
 
 To call the Fabric API you must authenticate with a user account or Service Principal. Learn more about service principals and how to enable them [here](https://learn.microsoft.com/en-us/power-bi/enterprise/service-premium-service-principal).
 
-## With user account
+### With user account
 
 ```powershell
 Set-FabricAuthToken -reset
 ```
 
-## With service principal (spn)
+### With service principal (spn)
 
 ```powershell
 Set-FabricAuthToken -servicePrincipalId "[AppId]" -servicePrincipalSecret "[AppSecret]" -tenantId "[TenantId]" -reset
 ```
 
 
-# Sample - Export items from workspace
+## Sample - Export items from workspace
 
 ```powershell
 
@@ -48,7 +57,7 @@ Export-FabricItems -workspaceId "[Workspace Id]" -path '[Export folder file path
 
 ```
 
-# Sample - Import PBIP to workspace - all items
+## Sample - Import PBIP to workspace - all items
 
 ```powershell
 
@@ -56,7 +65,7 @@ Import-FabricItems -workspaceId "[Workspace Id]" -path "[PBIP file path]"
 
 ```
 
-# Sample - Export item from workspace
+## Sample - Export item from workspace
 
 ```powershell
 
@@ -64,7 +73,7 @@ Export-FabricItem -workspaceId "[Workspace Id]" -itemId "[Item Id]" -path '[Expo
 
 ```
 
-# Sample - Import PBIP to workspace - item by item
+## Sample - Import PBIP to workspace - item by item
 
 ```powershell
 
@@ -76,7 +85,7 @@ $reportImport = Import-FabricItem -workspaceId $workspaceId -path "[PBIP Path]\[
 
 ```
 
-# Sample - Import PBIP item with different display name
+## Sample - Import PBIP item with different display name
 
 ```powershell
 
@@ -84,7 +93,7 @@ Import-FabricItem -workspaceId "[Workspace Id]" -path "[PBIP Path]\[Name].Semant
 
 ```
 
-# Sample - Import PBIP overriding semantic model parameters
+## Sample - Import PBIP overriding semantic model parameters
 
 ```powershell
 
@@ -97,7 +106,7 @@ Import-FabricItems -workspaceId $workspaceId -path $pbipPath
 
 ```
 
-# Sample - Create Workspace and set permissions
+## Sample - Create Workspace and set permissions
 
 ```powershell
 
@@ -127,7 +136,7 @@ Set-FabricWorkspacePermissions -workspaceId $workspaceId -permissions $workspace
 
 ```
 
-# Sample - Deploy semantic model and bind to Shared Cloud Connection (SCC)
+## Sample - Deploy semantic model and bind to Shared Cloud Connection (SCC)
 
 Learn more about Shared Cloud Connections [here](https://learn.microsoft.com/en-us/power-bi/connect-data/service-create-share-cloud-data-sources).
 
@@ -137,15 +146,15 @@ $workspaceName = "[Workspace Name]"
 $pbipPath = "[PBIP Path]\[Name].SemanticModel"
 $connectionsToBind = @("[SCC Connection Id]")
 
-# Authenticate
+## Authenticate
 
 Set-FabricAuthToken -reset
 
-# Ensure workspace exists
+## Ensure workspace exists
 
 $workspaceId = New-FabricWorkspace  -name $workspaceName -skipErrorIfExists
 
-# Import the semantic model and save the item id
+## Import the semantic model and save the item id
 
 $semanticModelImport = Import-FabricItem -workspaceId $workspaceId -path $pbipPath
 
@@ -155,7 +164,7 @@ Write-Host "Binding semantic model to connections"
 
 $authToken = Get-FabricAuthToken
 
-# 'gatewayObjectId' as '00000000-0000-0000-0000-000000000000 indicate the connection is a sharable cloud.
+## 'gatewayObjectId' as '00000000-0000-0000-0000-000000000000 indicate the connection is a sharable cloud.
 
 $body = @{
     "gatewayObjectId"= "00000000-0000-0000-0000-000000000000";
@@ -168,7 +177,7 @@ Invoke-RestMethod -Headers $headers -Uri "https://api.powerbi.com/v1.0/myorg/gro
 
 ```
 
-# Sample - Invoke any Fabric API
+## Sample - Invoke any Fabric API
 
 ```powershell
 
