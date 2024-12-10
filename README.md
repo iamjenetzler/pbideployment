@@ -1,4 +1,4 @@
-# Setup
+# Continuous Deployment
 
 The FabricPS-PBIP module that is used by the ContinuousDeployment.yml has a dependency to Az.Accounts module for authentication into Fabric, and this module is installed by the ContinuousDeployment.yml.
 
