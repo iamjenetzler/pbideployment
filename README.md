@@ -8,39 +8,67 @@ To run the Azure DevOps pipelines and call the Fabric APIs, you must authenticat
 *Example Azure permissions*
 ![ServiceAccountPermissions](./images/ServiceAccountPermissions.png)
 
-## Source Control Structure
-**Repository:** PowerBI-Deployment
-
-Folders:
-
-     > Contoso Online Sales
+## Benefits of Having Dev, Test, and Prod Branches
      
-     > Workspace 2
-     
-     > Workspace 3
-     
-     > Workspace n
-     
-     > yml
+1. **Isolation of Environments:**
+     - Dev Branch: Used for active development. Developers can push their changes here without affecting the stability of the test or production environments.
+     - Test Branch: Used for testing new features and bug fixes. This branch allows QA teams to validate changes before they are deployed to production.
+     - Prod Branch: Represents the stable version of your code that is deployed to production. Only thoroughly tested and approved changes are merged into this branch.     - 
+2. **Controlled Deployment:**
+     - Changes can be promoted from dev to test to prod in a controlled manner, ensuring that each change is properly tested before reaching production.       
+3. **Rollback Capability:**
+     - If an issue is found in production, you can quickly roll back to a previous stable state by reverting to an earlier commit in the prod branch.       
+4. **Parallel Development:**
+     - Multiple features can be developed in parallel in the dev branch, tested in the test branch, and then merged into the prod branch when ready.
 
-Branches:
+## Example Source Control Structure
 
-    > dev
-    
-    > test
-    
-    > main
+Using separate branches and workspaces for dev, test, and prod can greatly enhance your development workflow by providing clear isolation between different stages of development and deployment. It helps ensure that only thoroughly tested code reaches production, reducing the risk of issues and improving overall stability.
 
-Make sure to add your service account as a repository user.
+### Example Branching Strategy:
 
-## Power BI Workspace Structure
-I followed a naming convention of having three versions of each project worksapce with a suffix to denote the environement, for example:
+1. Main Branch:
+     - Often used as the primary branch for production-ready code. It can be synonymous with the prod branch in some workflows.
+2. Test Branch:
+     - Often used as the branch for code base ready for QA testing before moving to production.
+3. Dev Branch:
+     - Often used as the branch for code base under collaborative development including bug fixes.
+4. Feature Branches:
+     - Developers create feature branches off the dev branch to work on new features or bug fixes. Once a feature is complete, it is merged back into the dev branch.
+5. Release Branches
+     - When a set of features is ready for testing, a release branch is created from the dev branch and merged into the test branch. After testing, it is merged into the prod branch.
 
-- Contoso Online Sales - Dev
-- Contoso Online Sales - Test
-- Contsos Online Sales - Prod
+### Example Repository Structure
+
+**Repository:** PowerBI-Deployment:
+
+- Folders
+     -  Contoso Online Sales
+     -  Workspace 2 
+     -  Workspace 3 
+     -  Workspace n 
+     -  yml     
+
+### Example Power BI Workspace Structure
 
 Your developers and testers should have Read permissions on the workspaces because they will be working in feature branches and CI/CD will be used to promote changes to the project workspaces. The service account that you set up to run the pipelines needs to be an Admin in the workspaces.
+
+- Power BI Workspaces:
+     - Contoso Online Sales - Dev
+     - Contoso Online Sales - Test
+     - Contoso Online Sales - Prod
+     - Workspace 2 - Dev
+     - Workspace 2 - Test
+     - Workspace 2 - Prod
+
+### Example Workflow:
+
+1. Development:
+     - Developers work on feature branches and merge them into the dev branch.
+2. Testing:
+     - A release branch is created from the dev branch and merged into the test branch for testing.
+3. Production:
+     - Once testing is complete, the release branch is merged into the prod branch (or main branch).
     
 # Pipelines
 ## Continuous Integration
@@ -228,3 +256,32 @@ Set-FabricAuthToken -reset
 Invoke-FabricAPIRequest -uri "workspaces"
 
 ```
+
+# Process
+
+## Advanced
+	1. Developer only works in their branch connected to their own workspace
+		a. Developer opens a workspace where they have contributor permissions
+		b. Developer creates a new branch based on Dev
+		c. Developer makes changes in their workspace and commits to their branch
+			i. The changes are saved in their workspace until they commit to their branch
+			ii. A build is triggered when they commit to their branch 
+	2. Developer is satisfied with their changes, and creates a PR from their branch into dev branch
+		a. Dev-pipeline is triggered when they complete a pull request to dev
+			i. Build
+			ii. Build succeeds - files are committed to dev
+               iii. Checkout dev
+			iv. Deploy artifacts to dev Power BI workspace
+		b. Dev workspace is in synched with dev branch 
+			i. Future developers will start with the most recent version of dev
+			ii. Other developers who have a prior version of dev will merge in their changes
+
+## Basic
+	1. Developers work in the Dev workspace connected to the dev branch
+	2. When they are ready to save their changes with other devs they commit to dev
+		a. Triggers a build  
+		b. Build succeeds - files are committed to dev branch
+
+
+
+
