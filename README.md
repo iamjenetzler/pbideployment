@@ -8,7 +8,9 @@ Create an Azure service account that will be used to run the pipelines in Azure 
 ![ServiceAccountPermissions](./images/ServiceAccountPermissions.png)
 
 ## Source Control 
-Repository: PowerBI-Deployment
+**Repository:** PowerBI-Deployment
+
+Folders:
 
      > Contoso Online Sales
      
