@@ -8,7 +8,7 @@ To run the Azure DevOps pipelines and call the Fabric APIs, you must authenticat
 *Example Azure permissions*
 ![ServiceAccountPermissions](./images/ServiceAccountPermissions.png)
 
-## Source Control 
+## Source Control Structure
 **Repository:** PowerBI-Deployment
 
 Folders:
@@ -33,7 +33,7 @@ Branches:
 
 Make sure to add your service account as a repository user.
 
-# Power BI Workspaces
+# Power BI Workspace Structure
 I followed a naming convention of having three versions of each project worksapce with a suffix to denote the environement, for example:
 
 - Contoso Online Sales - Dev
