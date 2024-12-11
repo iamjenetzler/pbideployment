@@ -5,6 +5,7 @@ This repo is based on [https://github.com/microsoft/Analysis-Services/tree/maste
 
 To run the Azure DevOps pipelines and call the Fabric APIs, you must authenticate with a user account or Service Principal. Learn more about service principals and how to enable them [here](https://learn.microsoft.com/en-us/power-bi/enterprise/service-premium-service-principal). After you create the service account, add Azure permissions to run DevOps pipelines and to to modify applicable Power BI content in the Power BI service, such as semantic models, workspaces, and reports. Before you can start using service principals in Power BI, an admin must [enable service principal access](https://learn.microsoft.com/en-us/power-bi/enterprise/service-premium-service-principal#enable-service-principals) in the Power BI Admin portal.
 
+*Example Azure permissions*
 ![ServiceAccountPermissions](./images/ServiceAccountPermissions.png)
 
 ## Source Control 
